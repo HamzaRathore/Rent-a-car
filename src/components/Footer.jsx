@@ -1,9 +1,10 @@
 import React from "react";
 import { FaInstagram, FaTwitter, FaGoogle, FaFacebook } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="w-full pt-12 bg-gradient-to-b from-gray-900 to-red-800 text-white relative z-10">
+    <div className="w-full pt-12 bg-gradient-to-b from-gray-900 to-red-800 text-white relative z-10 -mb-6">
       {/* Main Content */}
       <div className="flex flex-col md:flex-row md:justify-around border-b-2 border-gray-900 pb-8 space-y-8 md:space-y-0 px-4 md:px-8">
         {/* ShopSphere Info */}
@@ -20,10 +21,18 @@ const Footer = () => {
         <div className="flex flex-col items-center text-center md:text-left md:w-1/3">
           <h1 className="text-2xl font-bold text-white">Quick Links</h1>
           <nav className="pt-4 space-y-2">
-            <p className="hover:underline cursor-pointer">Home</p>
-            <p className="hover:underline cursor-pointer">About</p>
-            <p className="hover:underline cursor-pointer">Contact</p>
-            <p className="hover:underline cursor-pointer">Privacy Policy</p>
+            <p className="hover:underline cursor-pointer">
+              <Link to="./"> Home</Link>
+            </p>
+            <p className="hover:underline cursor-pointer">
+              <Link to="/about">About</Link>
+            </p>
+            <p className="hover:underline cursor-pointer">
+              <Link to="/contact">Contact</Link>
+            </p>
+            <p className="hover:underline cursor-pointer">
+              <Link to="/login-page">Login</Link>
+            </p>
           </nav>
         </div>
 
