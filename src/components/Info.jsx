@@ -6,11 +6,10 @@ import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
 
 const Info = () => {
-
-  const navigate=useNavigate();
-  const handleBooking=()=>{
-    navigate('/car-booking');
-  }
+  const navigate = useNavigate();
+  const handleBooking = () => {
+    navigate("/rent-car");
+  };
   useEffect(() => {
     AOS.init({
       duration: 1000, // Default animation duration
@@ -44,9 +43,10 @@ const Info = () => {
             fold-flat seats, you can fit your bike without taking the wheel
             off—and your luggage too.
           </p>
-          <button 
-          onClick={handleBooking}
-          className="rounded-md py-2 px-6 font-bold text-white bg-gradient-to-b from-red-800 to-gray-800 hover:bg-gradient-to-t transition duration-500 self-center sm:self-start">
+          <button
+            onClick={handleBooking}
+            className="rounded-md py-2 px-6 font-bold text-white bg-gradient-to-b from-red-800 to-gray-800 hover:bg-gradient-to-t transition duration-500 self-center sm:self-start"
+          >
             More
           </button>
         </div>
@@ -69,7 +69,10 @@ const Info = () => {
             the variant and fuel type, the Civic has a mileage of 16.5 to 26.8
             kmpl.
           </p>
-          <button className="rounded-md py-2 px-6 font-bold text-white bg-gradient-to-b from-red-800 to-gray-800 hover:bg-gradient-to-t transition duration-500 self-center sm:self-start">
+          <button
+            onClick={handleBooking}
+            className="rounded-md py-2 px-6 font-bold text-white bg-gradient-to-b from-red-800 to-gray-800 hover:bg-gradient-to-t transition duration-500 self-center sm:self-start"
+          >
             More
           </button>
         </div>
