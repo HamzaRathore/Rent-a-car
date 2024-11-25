@@ -1,10 +1,23 @@
-import React from 'react';
+import React from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { MdOutlineMail, MdDialpad } from "react-icons/md";
+import { useForm } from "react-hook-form";
 
 const ContactUs = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-    
+  const onSubmit = (data) => {
+    console.log("Form Data:", data);
+    alert("Thanks for Contact us..! ");
+    reset();
+  };
+
   return (
     <section className="py-20 bg-gray-100 pt-36 mt-12">
       <div className="container mx-auto px-4">
@@ -47,7 +60,7 @@ const ContactUs = () => {
 
           {/* Contact Form */}
           <div className="w-full lg:w-5/12 bg-white rounded-lg shadow-lg">
-            <form className="p-6">
+            <form className="p-6" onSubmit={handleSubmit(onSubmit)}>
               <h2 className="text-xl font-bold mb-4 border-b-4 border-red-500 pb-2">
                 Contact Us
               </h2>
@@ -79,13 +92,19 @@ const ContactUs = () => {
                   Email <span className="text-red-500">*</span>
                 </label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
+                  {...register("email", {
+                    required: true,
+                    pattern: {
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                      message: "Invalid email address",
+                    },
+                  })}
                   placeholder="Enter email address"
-                  required
                   className="w-full p-2 border border-gray-300 rounded-lg"
                 />
+                {errors.email && (
+                  <p className="error-msg">{errors.email.message}</p>
+                )}
               </div>
               <div className="mb-4">
                 <label
@@ -95,20 +114,28 @@ const ContactUs = () => {
                   Phone <span className="text-red-500">*</span>
                 </label>
                 <input
+                  {...register("phone", {
+                    required: true,
+                    minLength: {
+                      value: 10,
+                      message: "Plz Enter Your Full number",
+                    },
+                    maxLength: { value: 12, message: "Correct your number" },
+                  })}
                   type="text"
-                  id="phone"
-                  name="phone"
                   placeholder="+92300-0000000"
-                  required
                   className="w-full p-2 border border-gray-300 rounded-lg"
                 />
+                {errors.phone && (
+                  <p className="phone text-red-600">{errors.phone.message}</p>
+                )}
               </div>
               <div className="mb-4">
                 <label
                   htmlFor="message"
                   className="block font-bold mb-1 text-gray-700"
                 >
-                  Enter your Selected Car Name and ID{' '}
+                  Enter your Selected Car Name and ID{" "}
                   <span className="text-red-500">*</span>
                 </label>
                 <textarea
