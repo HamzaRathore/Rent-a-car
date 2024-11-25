@@ -1,30 +1,30 @@
-import { useState } from 'react';
-import { FaCarSide, FaGoogle, FaFacebook } from 'react-icons/fa';
-import back from '../assets/back-2.jpg';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { FaCarSide, FaGoogle, FaFacebook } from "react-icons/fa";
+import back from "../assets/back-2.jpg";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle login logic here
+  const navigate = useNavigate();
+  const onSubmit = (data) => {
+    console.log("Form Data:", data);
+    navigate("/");
   };
-
-  const navigate=useNavigate();
-  const handleclick=()=>{
-    navigate('/');
-  }
 
   return (
     <div
       className="h-full flex items-center justify-center"
       style={{
         backgroundImage: `url(${back})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* Apply blur to background using backdrop-blur */}
@@ -37,40 +37,61 @@ const LoginPage = () => {
           <div className="flex justify-center">
             <FaCarSide className="text-5xl text-blue-600" />
           </div>
-          <h2 className="mt-4 text-3xl font-bold text-gray-900">Welcome Back!</h2>
+          <h2 className="mt-4 text-3xl font-bold text-gray-900">
+            Welcome Back!
+          </h2>
           <p className="mt-2 text-black">Please sign in to your account</p>
         </div>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-black">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-black"
+            >
               Email Address
             </label>
             <input
-              id="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", {
+                required: "Email is Required",
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "Invalid email address",
+                },
+              })}
               className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
               placeholder="Enter your email"
             />
+            {errors.email && (
+              <p className="error-msg text-red-500 text-sm">
+                {errors.email.message}
+              </p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-black">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-black"
+            >
               Password
             </label>
             <input
-              id="password"
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              })}
               type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
               placeholder="Enter your password"
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
           </div>
 
           <div className="flex items-center justify-between">
@@ -80,17 +101,22 @@ const LoginPage = () => {
                 type="checkbox"
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-700"
+              >
                 Remember me
               </label>
             </div>
-            <a href="#" className="text-sm font-medium text-black hover:text-blue-500">
+            <a
+              href="#"
+              className="text-sm font-medium text-black hover:text-blue-500"
+            >
               Forgot password?
             </a>
           </div>
 
           <button
-          onClick={handleclick}
             type="submit"
             className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
           >
@@ -123,7 +149,7 @@ const LoginPage = () => {
 
         {/* Sign Up Link */}
         <p className="text-center text-sm text-gray-600">
-          Don't have an account?{' '}
+          Don't have an account?{" "}
           <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
             Sign up now
           </a>
